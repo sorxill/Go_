@@ -1,6 +1,6 @@
-// Всегда название файла начинается с объявления с пакета. В любом проекте должен быть пакет main - иначе запуска приложения не будет.
-
 package main
+
+// Всегда название файла начинается с объявления с пакета. В любом проекте должен быть пакет main - иначе запуска приложения не будет.
 
 // Определяет название пакета, чтобы иметь обращение к этому файлу.
 
@@ -19,6 +19,21 @@ import (
 
 // Точка входа в приложение.
 func main() {
+	// test()
+	var message string = "test"
+
+	n, err := print(message)
+	// PrintLn возвращает два значения - длина строки, наличие error.
+	fmt.Println(n, err)
+
+	result_mesage := returnMessage("returned message")
+	fmt.Println(result_mesage)
+
+	f_string_message := returnFormatString("Ярослав", 20)
+	fmt.Println(f_string_message)
+}
+
+func test() {
 	var test int8 = 123
 
 	var message string
@@ -34,4 +49,17 @@ func main() {
 
 	fmt.Println(message, reflect.TypeOf(message), len(message))
 	fmt.Println(test, message, number, boolean)
+}
+
+func print(message string) (int, error) {
+	return fmt.Println("Функция print()", message)
+}
+
+func returnMessage(message string) string {
+	return "Ваше сообщение - " + message
+}
+
+func returnFormatString(message string, age int8) string {
+	result := fmt.Sprintf("Привет, %s! Тебе %d лет.", message, age)
+	return result
 }
