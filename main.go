@@ -17,14 +17,6 @@ import (
 А тут третья.
 */
 
-// Точка входа в приложение.
-func main() {
-
-	minimal, min_key := findMin(1, 3, 5, 0)
-
-	fmt.Println(minimal, min_key)
-}
-
 func test() {
 
 	var message string
@@ -88,4 +80,28 @@ func findMin(numbers ...int) (int, int) {
 	}
 
 	return min, min_key
+}
+
+func increment() func() int {
+	count := 0
+	return func() int {
+		count++
+		return count
+	}
+}
+
+// Точка входа в приложение.
+func main() {
+
+	// В таком случае я передаю лишь ссылку на функцию.
+	inc := increment
+	fmt.Println(inc()())
+	fmt.Println(inc()())
+
+	fmt.Println()
+
+	// В таком случае я инициализирую функцию переменной.
+	inc2 := increment()
+	fmt.Println(inc2())
+	fmt.Println(inc2())
 }
