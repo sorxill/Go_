@@ -107,9 +107,7 @@ func changeMesage(message *string) {
 	*message += " Я тут изменил немного текст)"
 }
 
-// Точка входа в приложение.
-func main() {
-
+func pointers() {
 	number := 5
 
 	var p *int
@@ -121,10 +119,34 @@ func main() {
 
 	fmt.Println(number)
 	fmt.Println(*p)
+}
 
-	message := "Привет, я текст."
-	printMessage(message)
-	// Чтобы передать указатель в памяти необходимо использовать - &.
-	changeMesage(&message)
-	fmt.Println(message)
+func slicesAndLists() []int {
+	/* Slice - обертка над массивами в Go. Он не имеет строгой длины, в отличии от массива.
+
+	!!! slice внутри себя хранит ссылку на массив, который можно передать в функцию, при изменении внутри функции будет меняться и аргумент.
+
+	msg := []int{1, 2, 3} - slice без указания длины.
+	msg1 := [3]int{1, 2, 3} - massive с указанием длины.
+	*/
+	integers := []int{1, 2, 3}
+	return integers
+}
+
+// Точка входа в приложение.
+func main() {
+	array := slicesAndLists()
+	fmt.Println(array)
+
+	// Make инициализирует массив в памяти, длинной в 3 элемента.
+	slice := make([]int, 3)
+	slice[0] = 12
+
+	/* При применении append - массив расширается(реаллоцируется) по вместимости (cap()) в два раза (!! при определенных условия, в дальнейшем на определенный процент)
+	+ в след элемент ставится значение, которое передано.
+	*/
+	slice = append(slice, 4)
+	// Тк capacity - 6, то расширяться он не будет, а добавит в 4 элемент - 5.
+	slice = append(slice, 5)
+	fmt.Println(slice, len(slice), cap(slice))
 }
