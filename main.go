@@ -5,8 +5,9 @@ package main
 // Определяет название пакета, чтобы иметь обращение к этому файлу.
 
 import (
+	"errors"
 	"fmt"
-	"reflect"
+	"log"
 )
 
 // Импортируем стандартную бибилиотеку.
@@ -19,21 +20,16 @@ import (
 
 // Точка входа в приложение.
 func main() {
-	// test()
-	var message string = "test"
+	message, err := returnErrors(12)
 
-	n, err := print(message)
-	fmt.Println(n, err)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	result_mesage := returnMessage("returned message")
-	fmt.Println(result_mesage)
-
-	f_string_message := returnFormatString("Ярослав", 20)
-	fmt.Println(f_string_message)
+	fmt.Println(message)
 }
 
 func test() {
-	var test int8 = 123
 
 	var message string
 
@@ -46,8 +42,7 @@ func test() {
 
 	boolean = false
 
-	fmt.Println(message, reflect.TypeOf(message), len(message))
-	fmt.Println(test, message, number, boolean)
+	fmt.Println(message, number, boolean)
 }
 
 func print(message string) (int, error) {
@@ -64,4 +59,18 @@ func returnFormatString(message string, age int8) string {
 	// Функция форматирования строки, исходя из параметров переданных в функцию.
 	result := fmt.Sprintf("Привет, %s! Тебе %d лет.", message, age)
 	return result
+}
+
+func returnErrors(age int) (string, error) {
+	// По конвенции error должен возвращаться последним значением.
+
+	if age >= 18 && age < 20 {
+		return "Вам больше 18, но нет 20", nil
+	} else if age < 18 {
+		return "Вам нет 18", errors.New("oops..")
+	}
+
+	// Ошибки должны быть на английском языке и начинаться с маленькой буквы, быть короткими.
+
+	return "Вам больше 18", errors.New("hmm...")
 }
