@@ -90,18 +90,14 @@ func increment() func() int {
 	}
 }
 
+var msg string
+
+func init() {
+	// Функция инициализации пакета. Вызывается до main.
+	msg = "Я из инициализации пакета."
+}
+
 // Точка входа в приложение.
 func main() {
-
-	// В таком случае я передаю лишь ссылку на функцию.
-	inc := increment
-	fmt.Println(inc()())
-	fmt.Println(inc()())
-
-	fmt.Println()
-
-	// В таком случае я инициализирую функцию переменной.
-	inc2 := increment()
-	fmt.Println(inc2())
-	fmt.Println(inc2())
+	fmt.Println(msg)
 }
