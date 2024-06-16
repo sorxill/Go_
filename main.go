@@ -17,6 +17,13 @@ import (
 А тут третья.
 */
 
+var msg string
+
+func init() {
+	// Функция инициализации пакета. Вызывается до main.
+	msg = "Я из инициализации пакета."
+}
+
 func test() {
 
 	var message string
@@ -90,14 +97,34 @@ func increment() func() int {
 	}
 }
 
-var msg string
+func printMessage(message string) {
+	message += " (из printMessage())"
+	fmt.Println(message)
+}
 
-func init() {
-	// Функция инициализации пакета. Вызывается до main.
-	msg = "Я из инициализации пакета."
+func changeMesage(message *string) {
+	// Чтобы изменить указатель необходимо указать '*' перед переменной. в аргументе перед типом.
+	*message += " Я тут изменил немного текст)"
 }
 
 // Точка входа в приложение.
 func main() {
-	fmt.Println(msg)
+
+	number := 5
+
+	var p *int
+
+	p = &number
+	fmt.Println(*p)
+	fmt.Println(number)
+	*p = 10
+
+	fmt.Println(number)
+	fmt.Println(*p)
+
+	message := "Привет, я текст."
+	printMessage(message)
+	// Чтобы передать указатель в памяти необходимо использовать - &.
+	changeMesage(&message)
+	fmt.Println(message)
 }
