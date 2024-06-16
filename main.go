@@ -23,7 +23,6 @@ func main() {
 	var message string = "test"
 
 	n, err := print(message)
-	// PrintLn возвращает два значения - длина строки, наличие error.
 	fmt.Println(n, err)
 
 	result_mesage := returnMessage("returned message")
@@ -52,14 +51,17 @@ func test() {
 }
 
 func print(message string) (int, error) {
+	// Фнункция, которая выводит в терминал сообщение и возвращает два значения - длину строки и наличие ошибок при выполнении.
 	return fmt.Println("Функция print()", message)
 }
 
 func returnMessage(message string) string {
+	// Функция возвращающая конкатенацию строки.
 	return "Ваше сообщение - " + message
 }
 
 func returnFormatString(message string, age int8) string {
+	// Функция форматирования строки, исходя из параметров переданных в функцию.
 	result := fmt.Sprintf("Привет, %s! Тебе %d лет.", message, age)
 	return result
 }
