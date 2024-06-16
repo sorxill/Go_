@@ -7,7 +7,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"log"
 )
 
 // Импортируем стандартную бибилиотеку.
@@ -20,13 +19,10 @@ import (
 
 // Точка входа в приложение.
 func main() {
-	message, err := returnErrors(12)
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	minimal, min_key := findMin(1, 3, 5, 0)
 
-	fmt.Println(message)
+	fmt.Println(minimal, min_key)
 }
 
 func test() {
@@ -73,4 +69,23 @@ func returnErrors(age int) (string, error) {
 	// Ошибки должны быть на английском языке и начинаться с маленькой буквы, быть короткими.
 
 	return "Вам больше 18", errors.New("hmm...")
+}
+
+func findMin(numbers ...int) (int, int) {
+	if len(numbers) == 0 {
+		return 0, 0
+	}
+
+	min := numbers[0]
+	min_key := 0
+
+	for key, value := range numbers {
+		if value < min {
+			min = value
+			min_key = key
+		}
+
+	}
+
+	return min, min_key
 }
