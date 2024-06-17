@@ -193,8 +193,7 @@ func recoveryFunction() {
 	fmt.Println("This is recover Function")
 }
 
-// Точка входа в приложение.
-func main() {
+func panicDeferRecover() {
 	/* Чем выше defer находится, тем позже эта функция будет  в коде. В случае срабатывания panic выполнение программы будет прекращено незамедлительно.
 	Но в случае если у нас есть recover - программа не будет прекращена незамедлительно, управление будет передан main потоку.
 	*/
@@ -213,5 +212,67 @@ func main() {
 
 	// В данном случае эти две функции не будут вызваны, тк была вызвана паника.
 	printMessage("test")
-	fmt.Println("main()")
+	fmt.Println("panicDeferRecover()")
+}
+
+func mapUsage() {
+	// map - Это словарь.
+	users := map[int]string{
+		1: "Me",
+		2: "You",
+		3: "She",
+		4: "He",
+	}
+
+	fmt.Println(users)
+	fmt.Println(users[1])
+	// В случае получения по не существующему ключу - выдаст дефолтное значение для типа value(значение). В данном случае - пустая строка.
+	// Никакой ошибки в этом нет, по сравнению с Python. Аналогия get - но там вернется Null.
+	fmt.Println(users[6])
+
+	// Так мы точно можем узнать, существует ли такой ключ. Возвращается bool значение.
+	who, exist := users[6]
+
+	if !exist {
+		fmt.Println("Такого нет")
+	} else {
+		fmt.Println(who)
+	}
+
+	for key, value := range users {
+		// Получаем ключ значение (мы не проходимся, тк данные не упорядоченны), порядок может быть случайным.
+		fmt.Println(key, value)
+	}
+
+	fmt.Println()
+	// Добавление в словарь(map) нового значения.
+	users[6] = "idk"
+	// Изменение значения по ключу.
+	users[1] = "not me"
+	// Удаление из словаря значения по ключу.
+	delete(users, 2)
+
+	for key, value := range users {
+		fmt.Println(key, value)
+	}
+
+	// Объявляем словарь, но не инициализируем его.
+	var users2 map[int]string
+	// В этом месте произойдет ошибка(паника), тк словарь не инициализирован.
+	// users2[1] = "Me"
+
+	// Инициализируем словарь ключевым словом make, теперь можем добавлять/изменять значения.
+	users2 = make(map[int]string)
+
+	users2[1] = "me"
+
+	fmt.Println(users2)
+
+	fmt.Println(len(users))
+	// fmt.Println(cap(users)) - У словаря нет вместимости, только длина.
+}
+
+// Точка входа в приложение.
+func main() {
+	mapUsage()
 }
