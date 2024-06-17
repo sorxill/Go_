@@ -358,15 +358,19 @@ func ageValidate() {
 }
 
 type Shape interface {
+	// Множественное наследование двух интерфейсов.
+	// Каждый объект, который реализует мульти-интерфейс должен содержать реализацю внутренних интерфейсов.
 	ShapeArea
 	ShapePerimetr
 }
 
 type ShapeArea interface {
+	// Интерфейс, объявляющий метод Area().
 	Area() float32
 }
 
 type ShapePerimetr interface {
+	// Интерфейс, объявляющий метод Perimetr().
 	Perimetr() float32
 }
 
@@ -422,7 +426,7 @@ func initShapes() {
 
 func printInterface(i interface{}) {
 	// Мы передаем пустой интерфейс, поэтому нам не важно какой тип мы передаем, тк любой тип удовлетворяет пустому интерфейсу.
-	// fmt.Printf("%+v\n", i)
+	fmt.Printf("%+v\n", i)
 
 	switch value := i.(type) {
 	case int:
