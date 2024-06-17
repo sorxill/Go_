@@ -133,20 +133,50 @@ func slicesAndLists() []int {
 	return integers
 }
 
+func matrixManipulate() {
+	// Матрицы по сути двумерные массивы/слайсы.
+	var matrix [][]int = make([][]int, 10)
+
+	for x := 0; x < 10; x++ {
+		matrix[x] = make([]int, 10)
+		for y := 0; y < 10; y++ {
+			if y == x {
+				matrix[y][x] = x
+			}
+		}
+	}
+
+	for _, value := range matrix {
+		// Перебор индекса в слайсе и его значения.
+		fmt.Println(value)
+	}
+
+	for key, value := range matrix {
+		// Из первого преобразования матрицы выбираем те места, которые не нулевые.
+		for index, x := range value {
+			if key == x && index == key {
+				fmt.Println(key, x)
+			}
+		}
+	}
+
+}
+
+func alwaysFor() {
+	// Бесконечный цикл - аналогия While в Python.
+	var counter int = 0
+
+	for {
+		if counter == 10 {
+			break
+		}
+		counter++
+		fmt.Println(counter)
+	}
+}
+
 // Точка входа в приложение.
 func main() {
-	array := slicesAndLists()
-	fmt.Println(array)
-
-	// Make инициализирует массив в памяти, длинной в 3 элемента.
-	slice := make([]int, 3)
-	slice[0] = 12
-
-	/* При применении append - массив расширается(реаллоцируется) по вместимости (cap()) в два раза (!! при определенных условия, в дальнейшем на определенный процент)
-	+ в след элемент ставится значение, которое передано.
-	*/
-	slice = append(slice, 4)
-	// Тк capacity - 6, то расширяться он не будет, а добавит в 4 элемент - 5.
-	slice = append(slice, 5)
-	fmt.Println(slice, len(slice), cap(slice))
+	matrixManipulate()
+	alwaysFor()
 }
