@@ -7,6 +7,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 // Импортируем стандартную бибилиотеку.
@@ -350,9 +351,50 @@ func (a Age) validateAge() bool {
 	return a > 18
 }
 
-// Точка входа в приложение.
-func main() {
+func ageValidate() {
 	age := Age(14)
 
 	fmt.Println(age, age.validateAge())
+}
+
+type Shape interface {
+	// Создаем интерфейс Shape у которого есть метод Area и возвращаемый тип.
+	Area() float32
+}
+
+type Circle struct {
+	radius float32
+}
+
+type Square struct {
+	side float32
+}
+
+func (squre Square) Area() float32 {
+	// Возвращаем площадь для квадрата.
+	return squre.side * squre.side
+}
+
+func (circle Circle) Area() float32 {
+	// Возвращаем площадь для круга.
+	return circle.radius * circle.radius * math.Pi
+}
+
+func showShapeArea(shape Shape) float32 {
+	// Вызываем метод Area у интерфейса.
+	return shape.Area()
+}
+
+func initShapes() {
+	// Инициализируем переменные и вызываем метод, который принимает интерфейс Shape, содержащий метод Area.
+	square := Square{3}
+	circle := Circle{1.7}
+
+	fmt.Println(showShapeArea(square))
+	fmt.Println(showShapeArea(circle))
+}
+
+// Точка входа в приложение.
+func main() {
+	initShapes()
 }
