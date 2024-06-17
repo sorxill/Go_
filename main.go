@@ -358,8 +358,16 @@ func ageValidate() {
 }
 
 type Shape interface {
-	// Создаем интерфейс Shape у которого есть метод Area и возвращаемый тип.
+	ShapeArea
+	ShapePerimetr
+}
+
+type ShapeArea interface {
 	Area() float32
+}
+
+type ShapePerimetr interface {
+	Perimetr() float32
 }
 
 type Circle struct {
@@ -375,14 +383,25 @@ func (squre Square) Area() float32 {
 	return squre.side * squre.side
 }
 
+func (square Square) Perimetr() float32 {
+	return square.side * 4
+}
+
 func (circle Circle) Area() float32 {
 	// Возвращаем площадь для круга.
 	return circle.radius * circle.radius * math.Pi
 }
 
+func (circle Circle) Perimetr() float32 {
+	return circle.radius * math.Pi * 2
+}
+
 func showShapeArea(shape Shape) float32 {
 	// Вызываем метод Area у интерфейса.
 	return shape.Area()
+}
+func showShapePerimetr(shape Shape) float32 {
+	return shape.Perimetr()
 }
 
 func initShapes() {
@@ -392,17 +411,40 @@ func initShapes() {
 
 	fmt.Println(showShapeArea(square))
 	fmt.Println(showShapeArea(circle))
+
+	fmt.Println(showShapePerimetr(square))
+	fmt.Println(showShapePerimetr(circle))
+
+	// Передаем инициализированную структуру и тк она удовлетворяте пустому интерфейсу возвращаем все дефолтные поля.
+	printInterface(UserBase{})
+	printInterface(Square{5})
 }
 
 func printInterface(i interface{}) {
 	// Мы передаем пустой интерфейс, поэтому нам не важно какой тип мы передаем, тк любой тип удовлетворяет пустому интерфейсу.
-	fmt.Printf("%+v\n", i)
+	// fmt.Printf("%+v\n", i)
+
+	switch value := i.(type) {
+	case int:
+		fmt.Println(value, "- int")
+	}
+
+	str, ok := i.(string)
+	if ok {
+		fmt.Println(len(str))
+	} else {
+		fmt.Println("This interface -", i, "has no len")
+	}
 }
 
 // Точка входа в приложение.
 func main() {
+	printInterface("qwe")
+	fmt.Println()
+	printInterface(123)
+
+	fmt.Println()
+	fmt.Println()
+
 	initShapes()
-	// Передаем инициализированную структуру и тк она удовлетворяте пустому интерфейсу возвращаем все дефолтные поля.
-	printInterface(UserBase{})
-	printInterface(Square{5})
 }
