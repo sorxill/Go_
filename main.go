@@ -394,7 +394,15 @@ func initShapes() {
 	fmt.Println(showShapeArea(circle))
 }
 
+func printInterface(i interface{}) {
+	// Мы передаем пустой интерфейс, поэтому нам не важно какой тип мы передаем, тк любой тип удовлетворяет пустому интерфейсу.
+	fmt.Printf("%+v\n", i)
+}
+
 // Точка входа в приложение.
 func main() {
 	initShapes()
+	// Передаем инициализированную структуру и тк она удовлетворяте пустому интерфейсу возвращаем все дефолтные поля.
+	printInterface(UserBase{})
+	printInterface(Square{5})
 }
