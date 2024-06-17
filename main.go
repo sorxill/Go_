@@ -272,7 +272,37 @@ func mapUsage() {
 	// fmt.Println(cap(users)) - У словаря нет вместимости, только длина.
 }
 
+func structSimple() {
+	// В таком случае мы инициализировали структуру, и уже не может её переобределить.
+	user := struct {
+		name   string
+		age    int8
+		sex    string
+		height int
+	}{
+		"Yaroslav", 20, "Male", 180,
+	}
+
+	fmt.Println(user)
+}
+
+func structInit() {
+	type User struct {
+		name   string
+		age    int8
+		sex    string
+		height int
+	}
+
+	user := User{"Yaroslav", 20, "Male", 180}
+
+	fmt.Println(user)
+
+	fmt.Println(user.age, user.name)
+}
+
 // Точка входа в приложение.
 func main() {
-	mapUsage()
+	structSimple()
+	structInit()
 }
