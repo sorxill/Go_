@@ -276,7 +276,7 @@ func structSimple() {
 	// В таком случае мы инициализировали структуру, и уже не может её переобределить.
 	user := struct {
 		name   string
-		age    int8
+		age    int
 		sex    string
 		height int
 	}{
@@ -289,7 +289,7 @@ func structSimple() {
 func structInit() {
 	type User struct {
 		name   string
-		age    int8
+		age    int
 		sex    string
 		height int
 	}
@@ -301,8 +301,46 @@ func structInit() {
 	fmt.Println(user.age, user.name)
 }
 
+type UserBase struct {
+	// Создаем структуру User.
+	name   string
+	age    int
+	sex    string
+	height int
+}
+
+func (us UserBase) printInfoUser() {
+	// Это метод структуры. В данном случае это ресивер метод (может по значению или по ссылке на структуру).
+	// В данном случае по ссылке.(создаётся копия, структура не меняется)
+	fmt.Println(us.age, us.name, us.height, us.sex)
+}
+
+func (us *UserBase) changeNameUser(name string) {
+	us.name = name
+}
+
+func NewUser(name string, sex string, age int, height int) UserBase {
+	// Конструктор для User.
+	return UserBase{
+		name:   name,
+		sex:    sex,
+		age:    age,
+		height: height,
+	}
+}
+
+func printInformationUser(user UserBase) {
+	// Возвращает инфо по полям.
+	fmt.Println(user.age, user.name, user.height, user.sex)
+}
+
 // Точка входа в приложение.
 func main() {
-	structSimple()
-	structInit()
+	user1 := NewUser("Petya", "Male", 30, 160)
+	printInformationUser(NewUser("Yaroslav", "Male", 20, 180))
+	printInformationUser(user1)
+
+	user1.printInfoUser()
+	user1.changeNameUser("Kostya")
+	user1.printInfoUser()
 }
