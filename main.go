@@ -319,7 +319,7 @@ func (us *UserBase) changeNameUser(name string) {
 	us.name = name
 }
 
-func NewUser(name string, sex string, age int, height int) UserBase {
+func NewUser(name, sex string, age, height int) UserBase {
 	// Конструктор для User.
 	return UserBase{
 		name:   name,
@@ -334,8 +334,7 @@ func printInformationUser(user UserBase) {
 	fmt.Println(user.age, user.name, user.height, user.sex)
 }
 
-// Точка входа в приложение.
-func main() {
+func userManipulate() {
 	user1 := NewUser("Petya", "Male", 30, 160)
 	printInformationUser(NewUser("Yaroslav", "Male", 20, 180))
 	printInformationUser(user1)
@@ -343,4 +342,17 @@ func main() {
 	user1.printInfoUser()
 	user1.changeNameUser("Kostya")
 	user1.printInfoUser()
+}
+
+type Age int
+
+func (a Age) validateAge() bool {
+	return a > 18
+}
+
+// Точка входа в приложение.
+func main() {
+	age := Age(14)
+
+	fmt.Println(age, age.validateAge())
 }
