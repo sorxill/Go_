@@ -175,8 +175,43 @@ func alwaysFor() {
 	}
 }
 
+func panicFunc(a int, b int) int {
+
+	if b == 0 {
+		panic("division by zero!")
+	}
+
+	return a / b
+}
+
+func recoveryFunction() {
+	if recoveryMessage := recover(); recoveryMessage != nil {
+		// В случае, если у нас вызвана паника и сообщение не nil - мы вернем сообщение об ошибке.
+		fmt.Println("panic message - ", recoveryMessage)
+	}
+	// Если паники не было, то выполнится только этот код. (В случае паники в данной ситуации это сообщение тоже выполнится.)
+	fmt.Println("This is recover Function")
+}
+
 // Точка входа в приложение.
 func main() {
-	matrixManipulate()
-	alwaysFor()
+	/* Чем выше defer находится, тем позже эта функция будет  в коде. В случае срабатывания panic выполнение программы будет прекращено незамедлительно.
+	Но в случае если у нас есть recover - программа не будет прекращена незамедлительно, управление будет передан main потоку.
+	*/
+
+	// defer recoveryFunction()
+
+	// fmt.Println(panicFunc(5, 1))
+
+	// printMessage("test")
+	// fmt.Println("main()")
+
+	defer recoveryFunction()
+
+	// вызываем панику делением на нуль.
+	fmt.Println(panicFunc(5, 0))
+
+	// В данном случае эти две функции не будут вызваны, тк была вызвана паника.
+	printMessage("test")
+	fmt.Println("main()")
 }
