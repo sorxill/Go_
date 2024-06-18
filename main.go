@@ -424,7 +424,7 @@ func initShapes() {
 	printInterface(Square{5})
 }
 
-func printInterface(i interface{}) {
+func printInterface(i any) {
 	// Мы передаем пустой интерфейс, поэтому нам не важно какой тип мы передаем, тк любой тип удовлетворяет пустому интерфейсу.
 	fmt.Printf("%+v\n", i)
 
