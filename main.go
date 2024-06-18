@@ -443,12 +443,7 @@ func printInterface(i any) {
 
 // Точка входа в приложение.
 func main() {
-	printInterface("qwe")
-	fmt.Println()
-	printInterface(123)
-
-	fmt.Println()
-	fmt.Println()
-
-	initShapes()
+	// Чтобы вызвать(скомпилировать и запустить) код из разных файлов необходимо при командах run/build указывать два файла main.go / main2.go. Или писать ".".
+	testingType()
+	testingType2()
 }
